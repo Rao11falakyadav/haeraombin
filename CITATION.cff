@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use haeraombin in your research or clinical benchmarking, please cite it using the metadata from this file."
+title: "haeraombin: Non-Invasive Conjunctival Pallor Screening with Fairness-Audited Selective Prediction"
+version: "0.1.0-alpha"
+license: "MIT"
+repository-code: "https://github.com/Bhagyansh07/haeraombin"
+url: "https://haeraombin.pages.dev"
+authors:
+  - family-names: "Chandel"
+    given-names: "Bhagyansh"
+    affiliation: "Independent researcher"
+keywords:
+  - "anaemia screening"
+  - "conjunctival pallor"
+  - "algorithmic fairness"
+  - "selective prediction"
+  - "ordinal classification"
+  - "mobile health"
+  - "edge AI"
+  - "individual typology angle"
+abstract: >-
+  haeraombin is an edge-native, zero-cloud non-invasive conjunctival pallor screening
+  system engineered for low-resource smartphone environments. It features an
+  ordinal regression architecture, calibrated selective prediction (abstaining
+  under adverse optical conditions), and comprehensive fairness auditing across
+  skin phototypes (Individual Typology Angle).

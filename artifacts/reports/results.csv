@@ -1,0 +1,2 @@
+head,n_test,mae,rmse,r2,pearson_r,bias,loa_lower,loa_upper,within_1,within_2,site_mae_gap,site_bias_gap,worst_site,worst_site_n,best_epoch,val_loss,seconds,note:0,note:1
+ordinal,12.0,1.8141,2.3459,-0.2312,nan,-1.0166,-5.3445,3.3114,0.3333,0.6667,0.0,0.0,Italy,8.0,1.0,2.597,0.3,checkpoint written to ordinal_mobilenetv3_small_100_palpebral_single-seed42.pt,temperature 4.597 fitted on 0.1565 -> 0.0984 ECE (validation only)

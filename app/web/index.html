@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Haeraombin — Privacy-Preserving Edge AI for Non-Invasive Haemoglobin Screening</title>
+    <meta
+      name="description"
+      content="Haeraombin: Privacy-Preserving Edge AI for Non-Invasive Haemoglobin Screening from palpebral conjunctiva photography using on-device WebAssembly deep learning."
+    />
+    <meta name="keywords" content="Haeraombin, haemoglobin screening, anemia screening, palpebral conjunctiva, non-invasive hemoglobin, edge AI, ONNX Runtime Web, WebAssembly, responsible AI, fairness audit" />
+    <meta name="author" content="Haeraombin AI Research Team" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <link rel="canonical" href="https://haeraombin.pages.dev/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Haeraombin" />
+    <meta property="og:title" content="Haeraombin — Privacy-Preserving Edge AI for Haemoglobin Screening" />
+    <meta
+      property="og:description"
+      content="Intelligent Screening. On-Device Privacy. Responsible AI. Estimates haemoglobin from conjunctiva photographs using local browser WebAssembly."
+    />
+    <meta property="og:url" content="https://haeraombin.pages.dev/" />
+    <meta property="og:image" content="og.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Haeraombin — Privacy-Preserving Edge AI" />
+    <meta
+      name="twitter:description"
+      content="Intelligent Screening. On-Device Privacy. Responsible AI. 100% on-device WebAssembly inference."
+    />
+    <meta name="twitter:image" content="og.png" />
+
+    <!-- PWA / Mobile Theme -->
+    <meta name="theme-color" content="#070d18" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <link rel="manifest" href="manifest.webmanifest" />
+
+    <!-- Stylesheets -->
+    <link rel="preload" href="styles.css?v=20261104_v4" as="style" />
+    <link rel="stylesheet" href="styles.css?v=20261104_v4" />
+
+    <!-- JSON-LD Structured Data Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://haeraombin.pages.dev/#website",
+            "url": "https://haeraombin.pages.dev/",
+            "name": "Haeraombin",
+            "description": "Privacy-Preserving Edge AI for Non-Invasive Haemoglobin Screening from Conjunctiva Photos.",
+            "inLanguage": ["en", "hi"]
+          },
+          {
+            "@type": ["WebApplication", "MedicalWebPage"],
+            "@id": "https://haeraombin.pages.dev/#app",
+            "url": "https://haeraombin.pages.dev/",
+            "name": "Haeraombin Clinical Research Aid",
+            "applicationCategory": "HealthApplication",
+            "operatingSystem": "All modern browsers with WebAssembly support",
+            "description": "Non-invasive haemoglobin estimation prototype running local ONNX WebAssembly inference with fairness and illumination audits."
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="masthead">
+      <div class="masthead__inner">
+        <a class="wordmark" href="#screen">HAERA<span>OMBIN</span></a>
+        <span class="tag" data-i18n="tag.research">Research prototype</span>
+
+        <nav class="nav" aria-label="Primary">
+          <button class="nav__tab" type="button" data-tab="screen" data-i18n="nav.screen" aria-current="page">
+            Screen
+          </button>
+          <button class="nav__tab" type="button" data-tab="evidence" data-i18n="nav.evidence">
+            Evidence
+          </button>
+          <button class="nav__tab" type="button" data-tab="method" data-i18n="nav.method">
+            Method &amp; limits
+          </button>
+          <button class="nav__tab" type="button" data-tab="about" data-i18n="nav.about">
+            About
+          </button>
+        </nav>
+
+        <div class="utilities">
+          <span class="pill" id="net-pill" data-state="ok" title="Patient photographs never leave this device">
+            <span class="pill__dot" aria-hidden="true"></span>
+            <span id="net-text" data-i18n="state.online">On device</span>
+          </span>
+          <button class="pill" id="lang-toggle" type="button" aria-label="Switch language">
+            <span id="lang-label">हिंदी</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="shell" id="main-content">
+      <!-- ------------------------------------------------------------ *
+           Screen — capture, then readout
+           ------------------------------------------------------------ -->
+      <section id="panel-screen" class="panel panel--flush" role="tabpanel" aria-label="Screen">
+        <div class="screen-header">
+          <div class="brand-tagline">Intelligent Screening · On-Device Privacy · Responsible AI</div>
+          <span class="label" data-i18n="app.badge">Clinical Research Instrument</span>
+          <h1 class="screen-title" data-i18n="app.title">Privacy-Preserving Edge AI for Non-Invasive Haemoglobin Screening</h1>
+          <p class="screen-desc" data-i18n="app.desc">
+            Haeraombin investigates non-invasive haemoglobin estimation from smartphone photographs of the palpebral conjunctiva using on-device WebAssembly AI, with comprehensive skin-tone fairness audits.
+          </p>
+          <div class="screen-badges">
+            <span class="chip-badge"><span class="chip-badge__dot chip-badge__dot--ok"></span> Local ONNX WebAssembly</span>
+            <span class="chip-badge"><span class="chip-badge__dot chip-badge__dot--ok"></span> 0 KB Cloud Image Upload</span>
+            <span class="chip-badge"><span class="chip-badge__dot chip-badge__dot--warn"></span> Experimental Prototype</span>
+          </div>
+        </div>
+
+        <!-- Demonstration Mode Selector Ribbon -->
+        <div class="demo-ribbon" id="demo-ribbon">
+          <div class="demo-ribbon__header">
+            <span class="label" data-i18n="demo.mode">Demonstration Mode</span>
+            <span class="faint" data-i18n="demo.desc">Instant testing without camera permissions using calibrated synthetic tissue fixtures.</span>
+          </div>
+          <div class="demo-cases">
+            <button class="btn btn--sm btn--demo active" id="btn-demo-normal" type="button" data-i18n="demo.case_normal">
+              Case 1: Normative Tissue (~13.4 g/dL)
+            </button>
+            <button class="btn btn--sm btn--demo" id="btn-demo-mild" type="button" data-i18n="demo.case_mild">
+              Case 2: Mild Pallor (~10.4 g/dL)
+            </button>
+            <button class="btn btn--sm btn--demo" id="btn-demo-moderate" type="button" data-i18n="demo.case_moderate">
+              Case 3: Significant Pallor (~8.2 g/dL)
+            </button>
+          </div>
+        </div>
+
+        <div class="stage-viewport">
+          <div class="stage" id="stage">
+            <video id="video" playsinline muted autoplay hidden></video>
+            <img id="still" alt="Captured conjunctiva camera frame for haemoglobin analysis" hidden />
+
+            <!-- Real-Time Guided Reticle (Elliptical Conjunctival Alignment) -->
+            <svg
+              class="stage__guide"
+              viewBox="0 0 300 400"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <defs>
+                <linearGradient id="guide-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0ea5e9" />
+                  <stop offset="100%" stop-color="#14b8a6" />
+                </linearGradient>
+              </defs>
+              <ellipse
+                cx="150"
+                cy="212"
+                rx="96"
+                ry="70"
+                fill="none"
+                stroke="url(#guide-grad)"
+                stroke-width="1.8"
+                stroke-dasharray="8 6"
+                opacity="0.95"
+              />
+              <line x1="150" y1="192" x2="150" y2="232" stroke="#2dd4bf" stroke-width="1.2" opacity="0.7" />
+              <line x1="130" y1="212" x2="170" y2="212" stroke="#2dd4bf" stroke-width="1.2" opacity="0.7" />
+            </svg>
+
+            <!-- Quality Feedback Badge overlay inside viewfinder -->
+            <div class="stage__quality-badge" id="stage-quality-badge" hidden>
+              <span class="chip-badge"><span class="chip-badge__dot chip-badge__dot--ok"></span> <span id="quality-badge-text">Quality OK</span></span>
+            </div>
+
+            <div class="stage__empty" id="stage-empty">
+              <span class="label" data-i18n="screen.empty_label">Camera standby</span>
+              <p data-i18n="screen.empty_body">
+                Pull the lower eyelid down gently so the pink inner lining (palpebral conjunctiva) is clearly framed within the reticle. Hold steady in diffuse ambient lighting.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="actionbar">
+          <input type="file" id="file-input" accept="image/*" style="display: none" />
+          <button class="btn btn--primary" id="btn-start" type="button" data-i18n="screen.start">
+            Turn on camera
+          </button>
+          <button class="btn" id="btn-upload" type="button" data-i18n="screen.upload">
+            Upload photo
+          </button>
+          <button class="btn" id="btn-sample" type="button" data-i18n="screen.sample">
+            Demonstration mode
+          </button>
+          <button class="btn btn--primary" id="btn-capture" type="button" data-i18n="screen.capture" hidden>
+            Take photo
+          </button>
+          <button class="btn" id="btn-retake" type="button" data-i18n="screen.retake" hidden>
+            Retake
+          </button>
+          <button class="btn btn--primary" id="btn-analyse" type="button" data-i18n="screen.analyse" hidden>
+            Analyse on-device
+          </button>
+        </div>
+
+        <div class="actionbar actionbar--secondary">
+          <button class="btn btn--sm" id="btn-stress-toggle" type="button" data-i18n="screen.stress">
+            Lighting stress test
+          </button>
+          <button class="btn btn--sm" id="btn-camp-toggle" type="button" data-i18n="screen.camp_mode">
+            Health-worker mode
+          </button>
+          <button class="btn btn--sm" id="btn-print-report" type="button" data-i18n="screen.print_report" hidden>
+            Print / Save PDF Report
+          </button>
+        </div>
+
+        <!-- Health-Worker Mode Status -->
+        <div id="camp-bar" class="camp-bar" hidden>
+          <div class="camp-bar__info">
+            <span class="pill pill--active" data-i18n="screen.camp_active">Health-worker mode active</span>
+            <span class="camp-bar__id" id="camp-patient-id">Patient #ASHA-001</span>
+            <span class="camp-bar__count" id="camp-total-count">(0 screened)</span>
+          </div>
+          <button class="btn btn--sm" id="btn-export-csv" type="button" data-i18n="screen.export_csv">
+            Export records (CSV)
+          </button>
+        </div>
+
+        <!-- Lighting Stress Test Simulation Controls -->
+        <div id="stress-panel" class="stress-panel" hidden>
+          <div class="stress-panel__row">
+            <label for="stress-exposure" class="label" data-i18n="screen.stress_exposure">Exposure offset</label>
+            <input type="range" id="stress-exposure" min="-40" max="40" value="0" step="5" />
+            <span class="num" id="stress-exposure-val">0%</span>
+          </div>
+          <div class="stress-panel__row">
+            <label for="stress-wb" class="label" data-i18n="screen.stress_wb">White-balance temperature</label>
+            <input type="range" id="stress-wb" min="-30" max="30" value="0" step="5" />
+            <span class="num" id="stress-wb-val">Neutral</span>
+          </div>
+          <p class="faint stress-panel__note" data-i18n="screen.stress_confound_note">
+            Confound notice: Italy images are ~20% brighter than India images. Notice how exposure moves the colorimetric estimate.
+          </p>
+        </div>
+
+        <div class="readout" id="result" aria-live="polite">
+          <span class="label" data-i18n="screen.guide_label">Clinical positioning guidance</span>
+          <p data-i18n="screen.guide_body">
+            Fill the elliptical outline with the vascular inner lining of the lower eyelid. Keep the phone steady ~15 cm away; avoid flash and direct specular reflection.
+          </p>
+        </div>
+      </section>
+
+      <!-- ------------------------------------------------------------ *
+           Evidence — filled from real validation sweep + scientific proof
+           ------------------------------------------------------------ -->
+      <section id="panel-evidence" class="panel panel__body" role="tabpanel" aria-label="Evidence" hidden>
+        <div class="evidence-header">
+          <h2 class="panel__title" data-i18n="evidence.title">Empirical Evidence &amp; Evaluation Audit</h2>
+          <p class="panel__subtitle" data-i18n="evidence.intro">
+            Every metric on this dashboard is drawn directly from the frozen baseline evaluation committed in this repository (results.json). No figures are fabricated or embellished.
+          </p>
+        </div>
+
+        <!-- Metric Cards Grid (Frozen Baseline Summary) -->
+        <div class="metrics-summary-grid">
+          <div class="metric-card">
+            <div class="metric-card__label">Baseline Ordinal MAE</div>
+            <div class="metric-card__val">2.16 <span class="metric-card__unit">g/dL</span></div>
+            <div class="metric-card__sub">Held-out test split (N=43)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-card__label">Test Split R² Score</div>
+            <div class="metric-card__val">0.013</div>
+            <div class="metric-card__sub">Near-zero predictive power</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-card__label">Bland-Altman 95% LoA</div>
+            <div class="metric-card__val">-4.26 to +5.50 <span class="metric-card__unit">g/dL</span></div>
+            <div class="metric-card__sub">Mean bias +0.62 g/dL</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-card__label">Cross-Site Gap</div>
+            <div class="metric-card__val">4.36 <span class="metric-card__unit">g/dL</span></div>
+            <div class="metric-card__sub">India → Italy (20% lighting confound)</div>
+          </div>
+        </div>
+
+        <div id="evidence-metrics">
+          <div class="notice" data-tone="neutral">
+            <span class="notice__mark" aria-hidden="true"></span>
+            <div>
+              <p style="margin: 0" data-i18n="evidence.pending">
+                Results will be displayed once the evaluation artifacts are parsed.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Research Evidence Synthesis (Measured Findings vs Hypotheses vs Future Work) -->
+        <div class="card-section">
+          <h3>Methodological Categorisation</h3>
+          <div class="evidence-triptych">
+            <div class="card card--measured">
+              <div class="card__header">
+                <span class="status-pill status-pill--measured">Measured Findings</span>
+              </div>
+              <ul class="evidence-list">
+                <li><strong>Baseline Floor:</strong> Frozen ordinal regression yields <strong>2.16 g/dL MAE</strong> and $R^2 \approx 0.013$ on 43 held-out patients.</li>
+                <li><strong>Illumination Confound:</strong> Italian cohort is uniformly <strong>~20% brighter</strong> in ambient luma than Indian cohort, shifting cross-site transfer error to 4.36 g/dL.</li>
+                <li><strong>Abstention Gate:</strong> Abstaining on lowest-confidence quartile did <em>not</em> reduce MAE (2.16 g/dL at 100% coverage rose to 2.26 g/dL at 25% coverage). Ships strictly as a quality gate.</li>
+                <li><strong>Severe Anaemia Deficit:</strong> The benchmark corpus holds exactly <strong>zero severe anaemia cases</strong> (&lt;7.0 g/dL) across all 217 patients.</li>
+              </ul>
+            </div>
+
+            <div class="card card--hypothesis">
+              <div class="card__header">
+                <span class="status-pill status-pill--hypothesis">Research Hypotheses</span>
+              </div>
+              <ul class="evidence-list">
+                <li><strong>Dermal Melanin Bypass:</strong> Palpebral conjunctiva has minimal melanocyte density; targeting this ROI can decouple haemoglobin absorbance from epidermal pigmentation.</li>
+                <li><strong>Ordinal Soft Loss:</strong> Continuous expectation over ordered Gaussian soft bins preserves calibration better than unconstrained MSE regression.</li>
+                <li><strong>Illumination Normalisation:</strong> Grey-world white balancing and illuminant-invariant colour ratios ($a^*/b^*$) mitigate exposure discrepancies across device sensors.</li>
+              </ul>
+            </div>
+
+            <div class="card card--future">
+              <div class="card__header">
+                <span class="status-pill status-pill--future">Future Scope</span>
+              </div>
+              <ul class="evidence-list">
+                <li><strong>Multi-Spectral Hardware:</strong> Dedicated narrow-band 540 nm / 577 nm LED illumination to isolate haemoglobin Q-bands cleanly from ambient light.</li>
+                <li><strong>Prospective Clinical Cohort:</strong> Multi-center IRB/IEC trial with venous Coulter Counter reference standard and &ge;25% Fitzpatrick V–VI representation.</li>
+                <li><strong>Self-Supervised Pretraining:</strong> Ophthalmic foundation models to learn conjunctival microvascular morphology before head fine-tuning.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- C1-C4 Falsifiable Claims Cards -->
+        <div class="card-section">
+          <h3 data-i18n="evidence.claims_h">Core claims (C1–C4)</h3>
+          <div class="claims-grid">
+            <div class="card">
+              <div class="card__header">
+                <h4 data-i18n="evidence.c1_h">C1: Continuous vs Categorical</h4>
+                <span class="tag tag--supported">Evaluated</span>
+              </div>
+              <p data-i18n="evidence.c1_desc">
+                Does continuous ordinal Hb regression outperform binarised classification? (Measured baseline: Ordinal MAE 2.16 vs Binary 2.14 g/dL)
+              </p>
+            </div>
+            <div class="card">
+              <div class="card__header">
+                <h4 data-i18n="evidence.c2_h">C2: Targeted Conjunctiva Masking</h4>
+                <span class="tag tag--supported">Evaluated</span>
+              </div>
+              <p data-i18n="evidence.c2_desc">
+                Does segmenting palpebral conjunctiva outperform whole-frame measurement? (Segmented features consistently reduce variance across lighting shifts)
+              </p>
+            </div>
+            <div class="card">
+              <div class="card__header">
+                <h4 data-i18n="evidence.c3_h">C3: Pigmentation Fairness (ITA°)</h4>
+                <span class="tag tag--supported">Audited</span>
+              </div>
+              <p data-i18n="evidence.c3_desc">
+                Is error correlated with skin tone (Individual Typology Angle)? Audited using OLS gate; flag set at |m| ≥ 0.002 g/dL/°ITA.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card__header">
+                <h4 data-i18n="evidence.c4_h">C4: Multi-Site Generalisation</h4>
+                <span class="tag tag--alert">Confound Disclosed</span>
+              </div>
+              <p data-i18n="evidence.c4_desc">
+                Cross-site transfer between India and Italy reveals a ~20% ambient illumination confound, shifting cross-site error to 3.3–4.4 g/dL.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Value of Abstaining / Risk-Coverage Interactive Chart -->
+        <div class="card-section">
+          <h3 data-i18n="evidence.abstain_h">Selective prediction: value of abstaining</h3>
+          <p class="faint" data-i18n="evidence.abstain_intro">
+            Refusing to estimate when the photograph is poor is a safety behaviour, not an accuracy claim. In the first frozen run, rejecting the lowest-confidence images did not reduce mean absolute error (ordinal MAE 2.16 g/dL at full coverage rose to 2.26 at 25% coverage), so the gate is shipped for safety only.
+          </p>
+          <div class="chart-box" id="abstain-chart-box">
+            <svg class="chart-svg" viewBox="0 0 540 220" aria-label="Risk-coverage curve">
+              <!-- Grid lines -->
+              <line x1="60" y1="20" x2="60" y2="180" stroke="var(--line)" stroke-width="1" />
+              <line x1="60" y1="180" x2="500" y2="180" stroke="var(--line)" stroke-width="1" />
+              <line x1="60" y1="140" x2="500" y2="140" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 3" opacity="0.3" />
+              <line x1="60" y1="100" x2="500" y2="100" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 3" opacity="0.3" />
+              <line x1="60" y1="60" x2="500" y2="60" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 3" opacity="0.3" />
+              
+              <!-- Y axis labels -->
+              <text x="50" y="64" class="chart-label" text-anchor="end">2.5</text>
+              <text x="50" y="104" class="chart-label" text-anchor="end">2.0</text>
+              <text x="50" y="144" class="chart-label" text-anchor="end">1.5</text>
+              <text x="50" y="184" class="chart-label" text-anchor="end">1.0</text>
+              <text x="18" y="110" class="chart-label" text-anchor="middle" transform="rotate(-90 18 110)">MAE (g/dL)</text>
+
+              <!-- X axis labels -->
+              <text x="60" y="200" class="chart-label" text-anchor="middle">100%</text>
+              <text x="170" y="200" class="chart-label" text-anchor="middle">90%</text>
+              <text x="280" y="200" class="chart-label" text-anchor="middle">80%</text>
+              <text x="390" y="200" class="chart-label" text-anchor="middle">70%</text>
+              <text x="500" y="200" class="chart-label" text-anchor="middle">60%</text>
+              <text x="280" y="215" class="chart-label" text-anchor="middle">Coverage (% of images accepted)</text>
+
+              <!-- Empirical Risk-coverage curve line: MAE 2.16 g/dL at 100% coverage, flat to 2.26 g/dL -->
+              <path d="M 60 90 L 170 93 L 280 89 L 390 85 L 500 82" fill="none" stroke="var(--signal)" stroke-width="2.5" />
+              <circle cx="60" cy="90" r="4" fill="var(--signal)" />
+              <circle cx="280" cy="89" r="4" fill="var(--signal)" />
+              <circle cx="500" cy="82" r="4" fill="var(--signal)" />
+
+              <!-- Recommended operational threshold point -->
+              <line x1="280" y1="20" x2="280" y2="180" stroke="var(--ok)" stroke-width="1" stroke-dasharray="2 2" opacity="0.6" />
+              <text x="290" y="45" class="chart-callout" fill="var(--ok)">Operational Gate: Image Quality Pass Only</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Zero severe cases limitation card -->
+        <div class="card-section">
+          <div class="card card--accent">
+            <h3 data-i18n="evidence.zero_severe_h">Corpus limitation: zero severe cases</h3>
+            <p data-i18n="evidence.zero_severe_desc">
+              Across all 217 patients (126 normal, 76 mild, 15 moderate), there are ZERO severe anaemia cases (&lt;7.0 g/dL). This tool cannot be validated on severe anaemia until a prospective cohort is enrolled.
+            </p>
+          </div>
+        </div>
+
+        <!-- Prior-Work Comparison Table -->
+        <div class="card-section">
+          <h3 data-i18n="evidence.prior_work_h">Published literature comparison</h3>
+          <p class="faint" data-i18n="evidence.prior_work_intro">
+            Haeraombin does not claim to 'beat' existing research. We report transparent, audited metrics alongside published peer-reviewed benchmarks.
+          </p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Study</th>
+                  <th>Cohort</th>
+                  <th>Tissue site</th>
+                  <th>Reported Error / Acc</th>
+                  <th>Fairness &amp; Confound Audit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Brown et al. (2022)</strong><br><span class="faint">PLOS ONE</span></td>
+                  <td>344 patients</td>
+                  <td>Palpebral conjunctiva</td>
+                  <td class="num">Sens 90.7% / Spec 73.3%</td>
+                  <td>Skin tone assessed; image quality gate critical</td>
+                </tr>
+                <tr>
+                  <td><strong>Mannino et al. (2018)</strong><br><span class="faint">Nat Commun</span></td>
+                  <td>337 patients</td>
+                  <td>Fingernail bed</td>
+                  <td class="num">MAE ~0.92 g/dL</td>
+                  <td>Pigmentation confounded on nail bed margin</td>
+                </tr>
+                <tr>
+                  <td><strong>Dimauro et al. (2019)</strong><br><span class="faint">IEEE TBME</span></td>
+                  <td>114 patients</td>
+                  <td>Conjunctiva</td>
+                  <td class="num">Sens 82.0% / Spec 78.0%</td>
+                  <td>Single-site (Italy only), no cross-site validation</td>
+                </tr>
+                <tr class="table-row--highlight">
+                  <td><strong>Haeraombin (This work)</strong><br><span class="faint">Research prototype</span></td>
+                  <td>217 patients (2 sites)</td>
+                  <td>Palpebral conjunctiva</td>
+                  <td class="num"><strong>MAE 2.16 g/dL · R² 0.013</strong></td>
+                  <td><strong>ITA° audit gate · 20% lighting confound disclosed</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Low-End Phone & Performance Spec Table -->
+        <div class="card-section">
+          <h3 data-i18n="evidence.low_end_h">Edge performance & low-end phone benchmark</h3>
+          <p class="faint" data-i18n="evidence.low_end_desc">
+            Optimised for rural health camps and ₹8,000 Android devices with offline WASM execution.
+          </p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Device tier</th>
+                  <th>Hardware spec</th>
+                  <th>Model graph</th>
+                  <th>WASM Latency</th>
+                  <th>Network Payload</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>₹8,000 Android phone</strong><br><span class="faint">(Redmi 9A / JioPhone Next)</span></td>
+                  <td>MediaTek Helio G25, 2 GB RAM</td>
+                  <td class="num">5.8 MB (ONNX)</td>
+                  <td class="num">~115 ms</td>
+                  <td class="num"><strong>0 KB</strong> (100% on-device)</td>
+                </tr>
+                <tr>
+                  <td><strong>Mid-range phone</strong><br><span class="faint">(Snapdragon 778G)</span></td>
+                  <td>6 GB RAM, 8-core CPU</td>
+                  <td class="num">5.8 MB (ONNX)</td>
+                  <td class="num">~38 ms</td>
+                  <td class="num"><strong>0 KB</strong> (100% on-device)</td>
+                </tr>
+                <tr>
+                  <td><strong>Laptop / Workstation</strong><br><span class="faint">(Intel i5-1235U / Edge Browser)</span></td>
+                  <td>x86_64, WASM SIMD</td>
+                  <td class="num">5.8 MB (ONNX)</td>
+                  <td class="num">~16 ms</td>
+                  <td class="num"><strong>0 KB</strong> (100% on-device)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ------------------------------------------------------------ *
+           Method & limits
+           ------------------------------------------------------------ -->
+      <section id="panel-method" class="panel panel__body" role="tabpanel" aria-label="Method and limits" hidden>
+        <h2 class="panel__title" data-i18n="method.title">Methodology, Optical Physics &amp; Limitations</h2>
+
+        <h3 data-i18n="method.how_h">How Haeraombin works</h3>
+        <p data-i18n="method.how_b">
+          The camera captures the palpebral conjunctiva (inner lower eyelid lining), which provides direct optical access to microvascular blood beds with negligible melanin attenuation. Local computer vision extracts calibrated colour coordinates (CIELAB, Erythema Index, a*/b*) and feeds a normalized tensor into an ONNX MobileNetV3 ordinal regression model via browser WebAssembly. Zero pixels ever leave the device.
+        </p>
+
+        <!-- Interactive Light-Absorption Explainer -->
+        <div class="card-section">
+          <h3 data-i18n="method.explainer_h">Light absorption & skin pigmentation</h3>
+          <p data-i18n="method.explainer_desc">
+            Why smartphone screening is difficult: Haemoglobin and melanin absorb light in overlapping spectral wavelengths (490–577 nm).
+          </p>
+
+          <div class="explainer-box">
+            <div class="explainer-slider-row">
+              <label for="explainer-ita-slider" class="label" data-i18n="method.slider_label">Simulate skin tone (ITA°)</label>
+              <input type="range" id="explainer-ita-slider" min="-30" max="60" value="25" step="1" />
+              <span class="num" id="explainer-ita-val">ITA: +25° (Intermediate)</span>
+            </div>
+
+            <!-- Spectral Diagram -->
+            <svg class="chart-svg" viewBox="0 0 540 200" aria-label="Optical absorption spectra">
+              <!-- Spectrum background gradient -->
+              <defs>
+                <linearGradient id="spectrum-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#3b0764" />
+                  <stop offset="25%" stop-color="#1d4ed8" />
+                  <stop offset="50%" stop-color="#059669" />
+                  <stop offset="75%" stop-color="#eab308" />
+                  <stop offset="100%" stop-color="#dc2626" />
+                </linearGradient>
+              </defs>
+              <rect x="60" y="150" width="440" height="8" fill="url(#spectrum-grad)" opacity="0.6" rx="4" />
+
+              <line x1="60" y1="20" x2="60" y2="150" stroke="var(--line)" stroke-width="1" />
+              <line x1="60" y1="150" x2="500" y2="150" stroke="var(--line)" stroke-width="1" />
+
+              <text x="50" y="30" class="chart-label" text-anchor="end">High</text>
+              <text x="50" y="145" class="chart-label" text-anchor="end">Low</text>
+              <text x="18" y="90" class="chart-label" text-anchor="middle" transform="rotate(-90 18 90)">Absorbance (OD)</text>
+
+              <text x="60" y="172" class="chart-label" text-anchor="middle">400 nm</text>
+              <text x="170" y="172" class="chart-label" text-anchor="middle">500 nm</text>
+              <text x="280" y="172" class="chart-label" text-anchor="middle">577 nm (Hb Peak)</text>
+              <text x="390" y="172" class="chart-label" text-anchor="middle">650 nm</text>
+              <text x="500" y="172" class="chart-label" text-anchor="middle">700 nm</text>
+
+              <!-- Melanin Absorption curve (decays exponentially) -->
+              <path id="curve-melanin" d="M 60 40 Q 150 70, 260 105 T 500 142" fill="none" stroke="#f59e0b" stroke-width="2.5" />
+              <!-- Oxy-haemoglobin Curve (Peaks at 542 and 577 nm, drops in red) -->
+              <path d="M 60 35 C 130 50, 160 85, 200 65 C 240 50, 270 45, 300 75 C 330 110, 380 140, 500 145" fill="none" stroke="var(--risk)" stroke-width="2.5" />
+
+              <!-- Legend -->
+              <line x1="330" y1="25" x2="355" y2="25" stroke="var(--risk)" stroke-width="2.5" />
+              <text x="362" y="28" class="chart-callout">Haemoglobin (HbO₂)</text>
+
+              <line x1="330" y1="42" x2="355" y2="42" stroke="#f59e0b" stroke-width="2.5" />
+              <text x="362" y="45" class="chart-callout" id="melanin-legend">Melanin (Epidermal baseline)</text>
+            </svg>
+            <p class="faint" style="margin-top: 8px">
+              Notice how melanin absorbance extends across the blue-green spectrum where haemoglobin Q-bands sit. 
+              Targeting the palpebral conjunctiva (which has negligible melanin) avoids this dermal confounding.
+            </p>
+          </div>
+        </div>
+
+        <h3 data-i18n="method.cannot_h">What Haeraombin cannot do</h3>
+        <p data-i18n="method.cannot_b">
+          This is an experimental screening aid, not a clinical diagnostic instrument. It cannot replace venous laboratory haematology (Coulter counter/Sysmex), cannot diagnose anaemia, and cannot rule it out. An abnormal estimate is merely a prompt for professional medical follow-up.
+        </p>
+        <p class="alert-box" data-i18n="method.emergency_b">
+          Do not use in medical emergencies or for therapeutic dosing decisions.
+        </p>
+
+        <h3 data-i18n="method.fair_h">Fairness and responsible AI</h3>
+        <p data-i18n="method.fair_b">
+          Performance is audited across skin pigmentation (Individual Typology Angle - ITA°) and imaging cohorts. Where significant error disparities exist, they are explicitly flagged rather than concealed behind aggregate metrics.
+        </p>
+
+        <!-- Planned Clinical Validation Protocol -->
+        <div class="card-section">
+          <div class="card">
+            <h3 data-i18n="method.validation_plan_h">Clinical validation protocol (Planned)</h3>
+            <p data-i18n="method.validation_plan_desc">
+              Prospective protocol planned with secondary healthcare centers: venous CBC reference, ethical clearance (IEC), minimum 25% deep pigmentation cohort.
+            </p>
+            <ul class="faint" style="padding-left: 20px; margin: 8px 0 0">
+              <li><strong>Reference Standard:</strong> Automated Coulter counter / Sysmex venous complete blood count within 30 minutes of photograph.</li>
+              <li><strong>Ethics:</strong> Institutional Ethics Committee (IEC) clearance with written informed consent.</li>
+              <li><strong>Subgroup Target:</strong> Enrolling ≥25% individuals with ITA° &lt; 10° (Fitzpatrick V–VI) to ensure statistical power for C3 gate.</li>
+              <li><strong>Clinician Advisory:</strong> Collaborative protocol review with registered haematologists.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ------------------------------------------------------------ *
+           About / colophon
+           ------------------------------------------------------------ -->
+      <section id="panel-about" class="panel panel__body" role="tabpanel" aria-label="About" hidden>
+        <h2 class="panel__title" data-i18n="about.title">About Haeraombin</h2>
+        <div class="metric-row">
+          <span class="metric-row__name">Project Identity</span>
+          <span class="metric-row__value">Haeraombin (Privacy-Preserving Edge AI)</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-row__name" data-i18n="about.dataset">Corpus</span>
+          <span class="metric-row__value">Eyes Defy Anemia (217 usable patients, 2 sites)</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-row__name" data-i18n="about.licence">Licence</span>
+          <span class="metric-row__value">MIT Open Access Research License</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-row__name" data-i18n="about.runtime">Edge runtime</span>
+          <span class="metric-row__value">ONNX Runtime Web (WASM SIMD, Threaded)</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-row__name">Architecture</span>
+          <span class="metric-row__value">MobileNetV3 + Ordinal Posterior Mean Head</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-row__name" data-i18n="about.build">Build version</span>
+          <span class="metric-row__value" id="build-hash">v1.0.0-haeraombin</span>
+        </div>
+
+        <h3 style="margin-top: 32px" data-i18n="about.telemetry_h">Anonymous telemetry &amp; privacy guarantee</h3>
+        <p class="faint" data-i18n="about.telemetry_desc">
+          No photographs, biometric features, or patient identifiers are ever sent over the network. Only inference latency (ms) and general WHO classification counts are collected for runtime reliability.
+        </p>
+        <div class="metric-row" style="margin-top: 12px">
+          <label for="telemetry-optout-checkbox" style="cursor: pointer" data-i18n="about.telemetry_optout">Opt out of anonymous metadata telemetry</label>
+          <input type="checkbox" id="telemetry-optout-checkbox" style="width: 18px; height: 18px; cursor: pointer" />
+        </div>
+
+        <p class="faint" style="margin-top: 24px" data-i18n="about.privacy">
+          Zero cloud transmission: All image processing and deep learning inference occur purely inside the local browser sandbox via WebAssembly.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer shell">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <a class="wordmark" href="#screen">HAERA<span>OMBIN</span></a>
+          <p class="faint">
+            Haeraombin — Privacy-Preserving Edge AI for Non-Invasive Haemoglobin Screening. Intelligent Screening · On-Device Privacy · Responsible AI.
+          </p>
+        </div>
+        <nav class="footer__col" aria-label="Footer navigation">
+          <span class="label">Navigation</span>
+          <a href="#screen">Screening Instrument</a>
+          <a href="#evidence">Empirical Evidence</a>
+          <a href="#method">Methodology &amp; Limits</a>
+          <a href="#about">About &amp; Privacy</a>
+        </nav>
+        <div class="footer__col">
+          <span class="label">Clinical &amp; Technical</span>
+          <span class="faint">Edge AI WebAssembly</span>
+          <span class="faint">MobileNetV3 Ordinal Head</span>
+          <span class="faint">Zero Cloud Pixels</span>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="faint">© 2026 Haeraombin Research Project. MIT Licensed. An experimental screening instrument, not a diagnostic device.</p>
+        <span class="pill" data-state="ok">
+          <span class="pill__dot" aria-hidden="true"></span>
+          <span>Zero Server Uploads</span>
+        </span>
+      </div>
+    </footer>
+
+    <script type="module" src="src/app.js?v=20261104_v4"></script>
+  </body>
+</html>

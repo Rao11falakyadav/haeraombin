@@ -1,0 +1,102 @@
+# --- secrets: never commit these ---
+.env
+.env.*
+*.pem
+*.key
+kaggle.json
+*_rsa.pem
+
+# --- research data: identifiable body images and lab values, never pushed ---
+data/raw/
+data/interim/
+data/processed/
+data/synthetic/
+*.zip
+!artifacts/**/*.zip
+
+# --- derived artifacts: feature caches, weights, scratch ---
+# Weights ship as GitHub Release assets, never as committed files.
+#
+# Written as `artifacts/*` rather than `artifacts/` on purpose: git cannot
+# re-include a path whose parent *directory* is excluded, so `artifacts/` would
+# have silently made the two `!artifacts/...` rules at the end of this file dead
+# and left a 162 KB feature cache on track for commit.
+artifacts/*
+# Generated at deploy time from artifacts/ by scripts/build_site.mjs, never
+# committed: the model is a binary and the runtime is a vendored npm package.
+app/web/models/*.onnx
+app/web/models/*.json
+app/web/data/
+app/web/vendor/
+
+# --- build output ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# --- frontend ---
+app/web/node_modules/
+app/web/dist/
+app/web/.vite/
+app/web/.env*
+app/web/coverage/
+
+# --- wrangler / cloudflare local state ---
+.wrangler/
+.dev.vars
+.dev.vars.*
+worker-configuration.d.ts
+
+# --- notebooks: strip checkpoints, keep the .ipynb ---
+.ipynb_checkpoints/
+
+# --- local agent / tooling logs ---
+.copilot-cockpit-logs/
+
+# --- editors / os ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# --- keep the derived evidence that backs EVALS.md ---
+!artifacts/reports/
+!artifacts/figures/
+
+# Patient-level rows stay out even though the aggregate report beside them is
+# kept. `predictions.csv` carries one line per patient with age, sex and the
+# measured lab value, so a run over a real corpus would publish exactly what the
+# block at the top of this file exists to keep private. The aggregate metrics it
+# is derived from carry no such row, which is why the directory is re-included
+# and this one file is not.
+#
+# The pattern is placed after `!artifacts/reports/` deliberately: it can only take
+# effect because that line re-includes the directory, and the ordering here is
+# load-bearing rather than incidental.
+artifacts/reports/predictions.csv
+
+# --- local working documents, never published ---
+# An internal planning and specification set. It exists to keep this build
+# self-consistent, not to be read by anyone else, and a public repository has
+# no reason to carry it.
+brain/
+
+# Personal career material. These three are interview preparation and job
+# application artifacts: they are written for a reader who is hiring, not a
+# reader who is using the software, and one of them quotes figures this
+# project never measured. They live outside the published history.
+docs/INTERVIEW_CHEAT_SHEET.md
+docs/PORTFOLIO_CASE_STUDY.md
+docs/TECHNICAL_WRITEUP.md
+
